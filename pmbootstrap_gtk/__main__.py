@@ -3,6 +3,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+import pmbootstrap_gtk
 from pmbootstrap_gtk.devices import get_devices
 
 
@@ -113,8 +114,10 @@ class Handler:
 
 
 if __name__ == '__main__':
+    import os
+    moduledir = os.path.dirname(pmbootstrap_gtk.__file__)
     builder = Gtk.Builder()
-    builder.add_from_file("wizard.glade")
+    builder.add_from_file(os.path.join(moduledir, "wizard.glade"))
     builder.connect_signals(Handler())
     window = builder.get_object("assistant1")
     window.show_all()
