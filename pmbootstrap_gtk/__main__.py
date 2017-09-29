@@ -16,16 +16,16 @@ selected_device = None
 
 
 class Handler:
-    def onCancelWizard(self, *args):
+    def on_cancel_wizard(self, *args):
         Gtk.main_quit(*args)
 
-    def onCloseWizard(self, *args):
+    def on_close_wizard(self, *args):
         Gtk.main_quit(*args)
 
-    def onApply(self, button):
+    def on_apply(self, button):
         print("Hello World!")
 
-    def onRefreshDevices(self, button):
+    def on_refresh_devices(self, button):
         print("refreshing devices...")
         # TODO: do this async
         devices = get_devices()
@@ -71,7 +71,7 @@ class Handler:
         page = builder.get_object(page)
         window.set_page_complete(page, state)
 
-    def onSelectDevice(self, widget, row):
+    def on_select_device(self, widget, row):
         global selected_device
         selected_device = row.data
         print("Selected {}.".format(selected_device["name"]))

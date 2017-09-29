@@ -5,9 +5,9 @@
   <object class="GtkAssistant" id="assistant1">
     <property name="can_focus">False</property>
     <property name="use_header_bar">1</property>
-    <signal name="apply" handler="onApply" swapped="no"/>
-    <signal name="cancel" handler="onCancelWizard" swapped="no"/>
-    <signal name="close" handler="onCloseWizard" swapped="no"/>
+    <signal name="apply" handler="on_apply" swapped="no"/>
+    <signal name="cancel" handler="on_cancel_wizard" swapped="no"/>
+    <signal name="close" handler="on_close_wizard" swapped="no"/>
     <child>
       <object class="GtkBox" id="introductionbox">
         <property name="visible">True</property>
@@ -42,7 +42,7 @@ Choose your device in the list below and click next to start the installation pr
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
                 <property name="always_show_image">True</property>
-                <signal name="clicked" handler="onRefreshDevices" swapped="no"/>
+                <signal name="clicked" handler="on_refresh_devices" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -62,7 +62,7 @@ Choose your device in the list below and click next to start the installation pr
           <object class="GtkListBox" id="listbox-devices">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <signal name="row-activated" handler="onSelectDevice" swapped="no"/>
+            <signal name="row-activated" handler="on_select_device" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
