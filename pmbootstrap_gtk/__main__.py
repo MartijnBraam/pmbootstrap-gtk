@@ -97,6 +97,20 @@ class Handler:
             print("FDE Disabled")
             self.set_page_complete("encryptionbox")
 
+    def on_userinfo_changed(self, textbox):
+        boxes = ["username", "password", "hostname"]
+        complete = True
+        for box in boxes:
+            widget = builder.get_object(box)
+            if widget.get_text() == "":
+                complete = False
+                break
+
+        if complete:
+            self.set_page_complete("userinfobox")
+        else:
+            self.set_page_complete("userinfobox", True)
+
 
 if __name__ == '__main__':
     builder = Gtk.Builder()
