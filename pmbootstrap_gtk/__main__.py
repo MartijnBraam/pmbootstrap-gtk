@@ -67,15 +67,35 @@ class Handler:
             listbox_devices.add(row)
         listbox_devices.show_all()
 
-    def set_page_complete(self, page):
+    def set_page_complete(self, page, state=True):
         page = builder.get_object(page)
-        window.set_page_complete(page, True)
+        window.set_page_complete(page, state)
 
     def onSelectDevice(self, widget, row):
         global selected_device
         selected_device = row.data
         print("Selected {}.".format(selected_device["name"]))
         self.set_page_complete("introductionbox")
+
+    def on_fde_password_changed(self, textbox):
+        if len(textbox.get_text()) == 0:
+            self.set_page_complete("encryptionbox", False)
+        else:
+            self.set_page_complete("encryptionbox")
+
+    def on_enable_disable_fde(self, checkbox):
+        fde_password_entry = builder.get_object("fde-password")
+        if checkbox.get_active():
+            fde_password_entry.set_editable(True)
+            if len(fde_password_entry.get_text()) == 0:
+                self.set_page_complete("encryptionbox", False)
+            else:
+                self.set_page_complete("encryptionbox")
+            print("FDE Enabled")
+        else:
+            fde_password_entry.set_editable(False)
+            print("FDE Disabled")
+            self.set_page_complete("encryptionbox")
 
 
 if __name__ == '__main__':
