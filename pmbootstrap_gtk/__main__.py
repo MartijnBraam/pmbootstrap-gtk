@@ -5,6 +5,7 @@ from gi.repository import Gtk
 
 import pmbootstrap_gtk
 from pmbootstrap_gtk.devices import get_devices
+from pmbootstrap_gtk.supported_devices import list_devices as supported_devices
 
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
@@ -17,6 +18,9 @@ selected_device = None
 
 
 class Handler:
+    def on_wizard_prepare(self, *args):
+        devices = supported_devices()
+
     def on_cancel_wizard(self, *args):
         Gtk.main_quit(*args)
 
@@ -115,6 +119,7 @@ class Handler:
 
 if __name__ == '__main__':
     import os
+
     moduledir = os.path.dirname(pmbootstrap_gtk.__file__)
     builder = Gtk.Builder()
     builder.add_from_file(os.path.join(moduledir, "wizard.glade"))
