@@ -20,7 +20,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Welcome to the postmarketOS installer wizard!
-                            Choose your device in the list below and click next to start the installation process
+Choose your device in the list below and click next to start the installation process
                         </property>
           </object>
           <packing>
@@ -75,7 +75,6 @@
       </object>
       <packing>
         <property name="title" translatable="yes">Select your device</property>
-        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -87,8 +86,7 @@
           <object class="GtkLabel" id="deviceselectiontext">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Select the device model you want to install
-                        </property>
+            <property name="label" translatable="yes">Select the device model you want to install</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -97,21 +95,37 @@
           </packing>
         </child>
         <child>
-          <object class="GtkListBox" id="listbox-supported-devices">
+          <object class="GtkScrolledWindow">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <signal name="row-activated" handler="on_select_supported_device" swapped="no"/>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">never</property>
+            <property name="vscrollbar_policy">always</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hscroll_policy">natural</property>
+                <property name="vscroll_policy">natural</property>
+                <child>
+                  <object class="GtkListBox" id="listbox-supported-devices">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <signal name="row-activated" handler="on_select_supported_device" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
       <packing>
         <property name="title" translatable="yes">Select your device</property>
-        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -125,10 +139,9 @@
             <property name="can_focus">False</property>
             <property name="margin_bottom">13</property>
             <property name="label" translatable="yes">Full disk encryption prevents data to be read without
-                            your password if you lose the phone (and it is not turned on)
+your password if you lose the phone (and it is not turned on)
 
-                            This password needs to be entered every time you boot the device.
-                        </property>
+This password needs to be entered every time you boot the device.</property>
             <property name="wrap">True</property>
           </object>
           <packing>
@@ -193,7 +206,6 @@
       </object>
       <packing>
         <property name="title" translatable="yes">Encryption</property>
-        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -207,8 +219,7 @@
             <property name="can_focus">False</property>
             <property name="margin_bottom">16</property>
             <property name="label" translatable="yes">These are the settings for the Linux installation
-                            itself. Mainly used to login into the phone through SSH.
-                        </property>
+itself. Mainly used to login into the phone through SSH.</property>
             <property name="wrap">True</property>
           </object>
           <packing>
@@ -300,7 +311,6 @@
       </object>
       <packing>
         <property name="title" translatable="yes">User info</property>
-        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -313,8 +323,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">This is where you choose the graphical environment on
-                            your device
-                        </property>
+your device</property>
             <property name="wrap">True</property>
           </object>
           <packing>
@@ -363,7 +372,6 @@
       </object>
       <packing>
         <property name="title" translatable="yes">GUI Selection</property>
-        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -425,7 +433,6 @@
       <packing>
         <property name="page_type">confirm</property>
         <property name="title" translatable="yes">Confirm</property>
-        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -478,7 +485,6 @@
       <packing>
         <property name="page_type">progress</property>
         <property name="title" translatable="yes">Installation</property>
-        <property name="has_padding">False</property>
       </packing>
     </child>
   </object>
