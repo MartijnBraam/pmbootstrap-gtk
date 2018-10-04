@@ -104,3 +104,4 @@ ENV/
 
 # Glade temp files
 *.glade~
+/.idea
