@@ -5,6 +5,7 @@ from gi.repository import Gtk
 
 import pmbootstrap_gtk
 from pmbootstrap_gtk.devices import get_devices
+from pmbootstrap_gtk.pmb_interface import list_supported_devices
 
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
@@ -14,9 +15,41 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
 
 
 selected_device = None
+selected_port = None
+initialized = False
 
 
 class Handler:
+    def on_wizard_prepare(self, *args):
+        global initialized
+        if initialized:
+            return
+        initialized = True
+        print("Preparing device information")
+        devices = list_supported_devices()
+        listbox_devices = builder.get_object("listbox-supported-devices")
+        for device in devices:
+            row = ListBoxRowWithData(device)
+            hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+            vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+            pixbuf = Gtk.IconTheme.get_default().load_icon("phone", 64, 0)
+            device_name = Gtk.Label(device, xalign=0)
+            device_name.set_markup("<b>{}</b>".format(device))
+            vbox.pack_start(device_name, True, True, 0)
+            icon = Gtk.Image.new_from_pixbuf(pixbuf)
+            alignment1 = Gtk.Alignment()
+            alignment1.add(icon)
+            alignment1.set(-1, 0, 0, 0)
+            hbox.pack_start(alignment1, True, True, 0)
+            alignment2 = Gtk.Alignment()
+            alignment2.add(vbox)
+            alignment2.set(-1, 0, 0, 0)
+            hbox.pack_start(alignment2, True, True, 0)
+            row.add(hbox)
+            listbox_devices.add(row)
+        listbox_devices.show_all()
+        self.on_refresh_devices(args[0])
+
     def on_cancel_wizard(self, *args):
         Gtk.main_quit(*args)
 
@@ -34,7 +67,7 @@ class Handler:
 
         # Clear current device list
         # for child in listbox_devices.children:
-        #    listbox_devices.remove(child)
+        #     listbox_devices.remove(child)
 
         # Build new listbox items for the devices
         for device in devices:
@@ -78,6 +111,12 @@ class Handler:
         print("Selected {}.".format(selected_device["name"]))
         self.set_page_complete("introductionbox")
 
+    def on_select_supported_device(self, widget, row):
+        global selected_port
+        selected_port = row.data
+        print("Selected {}.".format(selected_port))
+        self.set_page_complete("deviceselectionbox")
+
     def on_fde_password_changed(self, textbox):
         if len(textbox.get_text()) == 0:
             self.set_page_complete("encryptionbox", False)
@@ -115,6 +154,7 @@ class Handler:
 
 if __name__ == '__main__':
     import os
+
     moduledir = os.path.dirname(pmbootstrap_gtk.__file__)
     builder = Gtk.Builder()
     builder.add_from_file(os.path.join(moduledir, "wizard.glade"))
