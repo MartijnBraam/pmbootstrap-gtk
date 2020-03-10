@@ -241,6 +241,7 @@ This password needs to be entered every time you boot the device.</property>
               <object class="GtkEntry" id="password">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="input_purpose">password</property>
                 <signal name="changed" handler="on_userinfo_changed" swapped="no"/>
               </object>
               <packing>
