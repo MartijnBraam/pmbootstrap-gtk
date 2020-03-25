@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.22.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkAssistant" id="assistant1">
@@ -104,7 +104,6 @@ This password needs to be entered every time you boot the device.</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="xalign">0</property>
-            <property name="active">True</property>
             <property name="draw_indicator">True</property>
             <signal name="toggled" handler="on_enable_disable_fde" swapped="no"/>
           </object>
@@ -135,6 +134,7 @@ This password needs to be entered every time you boot the device.</property>
               <object class="GtkEntry" id="fde-password">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="input_purpose">password</property>
                 <signal name="changed" handler="on_fde_password_changed" swapped="no"/>
               </object>
               <packing>
@@ -153,6 +153,8 @@ This password needs to be entered every time you boot the device.</property>
       </object>
       <packing>
         <property name="title" translatable="yes">Encryption</property>
+        <property name="complete">True</property>
+        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -240,6 +242,7 @@ This password needs to be entered every time you boot the device.</property>
               <object class="GtkEntry" id="password">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="input_purpose">password</property>
                 <signal name="changed" handler="on_userinfo_changed" swapped="no"/>
               </object>
               <packing>
@@ -257,6 +260,7 @@ This password needs to be entered every time you boot the device.</property>
       </object>
       <packing>
         <property name="title" translatable="yes">User info</property>
+        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -285,6 +289,7 @@ This password needs to be entered every time you boot the device.</property>
               <object class="GtkTreeView" id="gui-list">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <signal name="row-activated" handler="on_ui_chosen" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection1"/>
                 </child>
@@ -317,6 +322,7 @@ This password needs to be entered every time you boot the device.</property>
       </object>
       <packing>
         <property name="title" translatable="yes">GUI Selection</property>
+        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
@@ -340,6 +346,16 @@ This password needs to be entered every time you boot the device.</property>
           <object class="GtkGrid" id="grid3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="vexpand">True</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
             <child>
               <placeholder/>
             </child>
@@ -365,16 +381,33 @@ This password needs to be entered every time you boot the device.</property>
             <property name="position">1</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">super scary warning/disclaimer</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
       </object>
       <packing>
         <property name="page_type">confirm</property>
         <property name="title" translatable="yes">Confirm</property>
+        <property name="has_padding">False</property>
       </packing>
     </child>
     <child>
       <object class="GtkBox" id="installation">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="valign">center</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel" id="label">
@@ -421,22 +454,14 @@ This password needs to be entered every time you boot the device.</property>
       <packing>
         <property name="page_type">progress</property>
         <property name="title" translatable="yes">Installation</property>
+        <property name="has_padding">False</property>
       </packing>
     </child>
     <child internal-child="action_area">
-      <object class="GtkBox" id="assistant-action_area">
+      <object class="GtkBox">
         <property name="can_focus">False</property>
-        <property name="halign">end</property>
-        <property name="margin_left">6</property>
-        <property name="margin_right">6</property>
-        <property name="margin_start">6</property>
-        <property name="margin_end">6</property>
-        <property name="margin_top">6</property>
-        <property name="margin_bottom">6</property>
-        <property name="spacing">6</property>
       </object>
       <packing>
-        <property name="title" translatable="yes">Select your device</property>
         <property name="has_padding">False</property>
       </packing>
     </child>

@@ -1,10 +1,11 @@
 import gi
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Pango
 
 import pmbootstrap_gtk
 from pmbootstrap_gtk.devices import get_devices
+from pmbootstrap_gtk.uis import get_uis
 
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
@@ -56,11 +57,11 @@ class Handler:
                 device_detail = Gtk.Label("Size: {}".format(device["size"]), xalign=0)
                 vbox.pack_start(device_detail, True, True, 0)
             icon = Gtk.Image.new_from_pixbuf(pixbuf)
-            alignment1 = Gtk.Alignment()
+            alignment1 = Gtk.Alignment(margin=15)
             alignment1.add(icon)
             alignment1.set(-1, 0, 0, 0)
-            hbox.pack_start(alignment1, True, True, 0)
-            alignment2 = Gtk.Alignment()
+            hbox.pack_start(alignment1, False, False, 0)
+            alignment2 = Gtk.Alignment(margin=15)
             alignment2.add(vbox)
             alignment2.set(-1, 0, 0, 0)
             hbox.pack_start(alignment2, True, True, 0)
@@ -110,7 +111,40 @@ class Handler:
         if complete:
             self.set_page_complete("userinfobox")
         else:
+            self.populate_uis() # should not be here obviously
             self.set_page_complete("userinfobox", True)
+            
+    def populate_uis(self):
+        uis = get_uis()
+        store = Gtk.ListStore(str, str, str)
+        
+        gui_list = builder.get_object("gui-list")
+        
+        renderer = Gtk.CellRendererText(wrap_width = 400, wrap_mode = Pango.WrapMode.WORD)
+        column = Gtk.TreeViewColumn("Name", renderer, text=0)
+        gui_list.append_column(column)
+
+        column = Gtk.TreeViewColumn("Type", renderer, text=1)
+        gui_list.append_column(column)
+        
+        column = Gtk.TreeViewColumn("Description", renderer, text=2)
+        gui_list.append_column(column)
+        
+        
+        # Build new listbox items for the devices
+        for ui in uis:
+            store.append([ui['name'], ui['type'], ui['description']])
+        
+        for row in store:
+            # Print values of all columns
+            print(row[:])
+        gui_list.set_model(store)
+        gui_list.show_all()
+        
+    def on_ui_chosen(self, tree, ui, x):
+        # update thumbnail
+        
+        self.set_page_complete("guibox")
 
 
 if __name__ == '__main__':
