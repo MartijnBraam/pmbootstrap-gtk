@@ -346,6 +346,7 @@ This password needs to be entered every time you boot the device.</property>
           <object class="GtkGrid" id="grid3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="vexpand">True</property>
             <child>
               <placeholder/>
             </child>
@@ -391,6 +392,7 @@ This password needs to be entered every time you boot the device.</property>
       <object class="GtkBox" id="installation">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="valign">center</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel" id="label">
