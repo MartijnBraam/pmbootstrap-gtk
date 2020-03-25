@@ -141,8 +141,10 @@ class Handler:
         gui_list.set_model(store)
         gui_list.show_all()
         
-    def set_uis_thumbnail(self):
-        pass
+    def on_ui_chosen(self, tree, ui, x):
+        # update thumbnail
+        
+        self.set_page_complete("guibox")
 
 
 if __name__ == '__main__':

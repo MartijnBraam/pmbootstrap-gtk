@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkAssistant" id="assistant1">
@@ -289,6 +289,7 @@ This password needs to be entered every time you boot the device.</property>
               <object class="GtkTreeView" id="gui-list">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <signal name="row-activated" handler="on_ui_chosen" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection1"/>
                 </child>
@@ -436,6 +437,14 @@ This password needs to be entered every time you boot the device.</property>
       <packing>
         <property name="page_type">progress</property>
         <property name="title" translatable="yes">Installation</property>
+        <property name="has_padding">False</property>
+      </packing>
+    </child>
+    <child internal-child="action_area">
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+      </object>
+      <packing>
         <property name="has_padding">False</property>
       </packing>
     </child>
