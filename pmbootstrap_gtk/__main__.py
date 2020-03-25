@@ -1,10 +1,11 @@
 import gi
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Pango
 
 import pmbootstrap_gtk
 from pmbootstrap_gtk.devices import get_devices
+from pmbootstrap_gtk.uis import get_uis
 
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
@@ -110,7 +111,38 @@ class Handler:
         if complete:
             self.set_page_complete("userinfobox")
         else:
+            self.populate_uis() # should not be here obviously
             self.set_page_complete("userinfobox", True)
+            
+    def populate_uis(self):
+        uis = get_uis()
+        store = Gtk.ListStore(str, str, str)
+        
+        gui_list = builder.get_object("gui-list")
+        
+        renderer = Gtk.CellRendererText(wrap_width = 400, wrap_mode = Pango.WrapMode.WORD)
+        column = Gtk.TreeViewColumn("Name", renderer, text=0)
+        gui_list.append_column(column)
+
+        column = Gtk.TreeViewColumn("Type", renderer, text=1)
+        gui_list.append_column(column)
+        
+        column = Gtk.TreeViewColumn("Description", renderer, text=2)
+        gui_list.append_column(column)
+        
+        
+        # Build new listbox items for the devices
+        for ui in uis:
+            store.append([ui['name'], ui['type'], ui['description']])
+        
+        for row in store:
+            # Print values of all columns
+            print(row[:])
+        gui_list.set_model(store)
+        gui_list.show_all()
+        
+    def set_uis_thumbnail(self):
+        pass
 
 
 if __name__ == '__main__':
